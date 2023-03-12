@@ -1,10 +1,9 @@
 import "./globals.css";
 import Image from "next/image";
-import localFont from "next/font/local";
 import BackgroundImg from "@public/background.jpg";
+import { App } from "@components/app";
 import Header from "@components/header";
-
-const PureJoy = localFont({ src: "../public/fonts/Pure Joy.ttf" });
+import { PureJoy } from "./font";
 
 export const metadata = {
   title: "Pool Party",
@@ -22,9 +21,11 @@ export default function RootLayout({
           <div className="blur-[3px] absolute inset-[-1%]">
             <Image src={BackgroundImg} alt="" fill className="object-cover" />
           </div>
-          <div className="relative h-full overflow-auto">
-            <Header />
-            {children}
+          <div className="relative h-full overflow-auto" id="pool-party">
+            <App>
+              <Header />
+              {children}
+            </App>
           </div>
         </div>
       </body>

@@ -21,14 +21,18 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        blur: "background: linear-gradient(0deg, rgba(83, 214, 255, 0.05), rgba(83, 214, 255, 0.05)), rgba(255, 255, 255, 0.5);",
+        blur: "background: linear-gradient(0deg, rgba(83, 214, 255, 0.05), rgba(83, 214, 255, 0.05)), rgba(255, 255, 255, 0.5)",
+        "gradient-blur":
+          "background: linear-gradient(0deg, rgba(83, 214, 255, 0.05), rgba(83, 214, 255, 0.05)), rgba(255, 255, 255, 0.5)",
       },
       colors: {
         purple: "#6C02EA",
         blue: "#3082FF",
         blueLight: "rgba(157, 208, 222, 0.75)",
+        blueDark: "rgb(48, 135, 166)",
         pink: "#DD008B",
         pinkDark: "#B1006F",
+        modal: "rgba(0, 0, 0, 0.5)",
       },
     },
   },

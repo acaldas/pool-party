@@ -1,4 +1,4 @@
-import type { BigNumber } from "ethers";
+import type { BigNumberish } from "ethers";
 
 declare global {
   type PoolToken = {
@@ -9,8 +9,8 @@ declare global {
 
   type Pool = {
     token: PoolToken;
-    prize: BigNumber;
-    total: BigNumber;
+    prize: BigNumberish;
+    total: BigNumberish;
     people: number;
   };
 }
