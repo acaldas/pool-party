@@ -69,7 +69,7 @@ export function PoolItem(pool: Pool) {
             <Panel
               className="border-[5px] border-blue"
               title={
-                <div className="mx-auto inline-block items-center">
+                <div className="mx-auto inline-block items-center whitespace-nowrap">
                   <h2 className="mr-2 inline-block text-[28px] text-blue">
                     BONUSPOOL
                   </h2>
