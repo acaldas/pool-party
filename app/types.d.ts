@@ -4,7 +4,8 @@ declare global {
   type PoolToken = {
     name: string;
     icon: string;
-    contract: string;
+    contract: `0x${string}`;
+    decimals: number;
   };
 
   type Pool = {

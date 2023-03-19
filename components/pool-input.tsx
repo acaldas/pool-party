@@ -1,15 +1,20 @@
 "use client";
 
 import { BigNumber, BigNumberish } from "ethers";
-import { useCallback, useMemo, useState } from "react";
+import { ReactNode, useCallback, useMemo, useState } from "react";
+import { useAccount } from "wagmi";
+import { useErc20BalanceOf } from "../app/generated";
+import { formatValue } from "../app/utils";
 import Slider from "./slider";
 
 function Input({
   value,
   onChange,
+  decimals,
 }: {
   value: BigNumberish;
   onChange: (value: BigNumberish) => void;
+  decimals: number;
 }) {
   return (
     <div className="relative h-[50px] rounded-lg border-2 border-blue bg-white">
@@ -18,15 +23,32 @@ function Input({
       </h2>
       <input
         className="h-full w-full rounded-lg px-3 text-right text-lg text-pink outline-none"
-        value={value.toString()}
+        value={formatValue(value, decimals)}
         onChange={(e) => onChange(e.target.value)}
       />
     </div>
   );
 }
 
-export default function PoolInput() {
-  const maxValue = BigNumber.from("20000");
+export default function PoolInput({
+  pool,
+  children,
+}: {
+  pool: Pool;
+  children?: ReactNode;
+}) {
+  const { token } = pool;
+  const { address } = useAccount();
+
+  const contract = useErc20BalanceOf({
+    address: token.contract,
+    args: [address || "0x00"],
+    enabled: !!address,
+  });
+
+  const maxValue = useMemo(() => {
+    return contract.data ?? BigNumber.from("0");
+  }, [contract]);
   const [value, setValue] = useState(BigNumber.from("0"));
   const [initialPercentage, setPercentage] = useState(0);
 
@@ -53,8 +75,9 @@ export default function PoolInput() {
     <div>
       <Slider percentage={initialPercentage} onChange={handlePercentage} />
       <div className="pt-7">
-        <Input value={value} onChange={handleValue} />
+        <Input value={value} onChange={handleValue} decimals={token.decimals} />
       </div>
+      {children}
     </div>
   );
 }

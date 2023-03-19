@@ -73,7 +73,8 @@ a {
 }
 
 @layer components {
-  #pool-party .button {
+  #pool-party .button,
+  .modal .button {
     @apply h-[50px] rounded-[6px] bg-pink text-white transition-colors hover:bg-pinkDark;
     text-shadow: none;
   }
@@ -159,4 +160,27 @@ a {
     rgb(255, 255, 255) 6.37426px -2.89289px 0px,
     rgb(255, 255, 255) 6.72119px -1.95591px 0px,
     rgb(255, 255, 255) 6.93119px -0.979076px 0px;
+}
+
+.bg-blur {
+  background: linear-gradient(
+      0deg,
+      rgba(83, 214, 255, 0.05),
+      rgba(83, 214, 255, 0.05)
+    ),
+    rgba(255, 255, 255, 0.5);
+}
+
+.bg-blur-blue {
+  background: linear-gradient(0deg, #9dd0de, #9dd0de), rgba(255, 255, 255, 0.76);
+}
+
+.bg-blur-pink,
+:hover.bg-blur-pink-hover {
+  background: linear-gradient(
+      0deg,
+      rgba(108, 2, 234, 0.1),
+      rgba(108, 2, 234, 0.1)
+    ),
+    rgba(255, 255, 255, 0.76);
 }

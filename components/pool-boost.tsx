@@ -1,6 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
-import { formatValue } from "../app/utils";
-import BackdropContainer from "./backdrop-container";
+import { ReactNode } from "react";
 import PoolInput from "./pool-input";
 import TooltipBonus from "./tooltip-bonus";
 
@@ -28,19 +26,18 @@ function Panel({
 
 export function PoolItem(pool: Pool) {
   const { token, prize, total, people } = pool;
-
   return (
-    <BackdropContainer
+    <div
       className="bg-blur relative mt-4 w-full
-          max-w-[544px] rounded-[20px] border-[5px] border-blue p-7 pt-[60px]
-          [&:nth-child(2n)]:justify-self-center [&:nth-child(3n)]:justify-self-end"
+     max-w-[544px] rounded-[20px] border-[5px] border-blue p-7 pt-[60px] backdrop-blur-[20px]
+     [&:nth-child(2n)]:justify-self-center [&:nth-child(3n)]:justify-self-end"
     >
       <h1
         className="absolute top-0 left-0 right-0
       -translate-y-1/2 text-center text-xl text-pink"
       >{`${token.name}.POOL`}</h1>
       <Panel className="mb-6" title={<h2 className="text-blue">PRIZEPOOL</h2>}>
-        <div>{formatValue(prize.toString(), token.decimals)}</div>
+        <div>{prize.toString()}</div>
       </Panel>
       <div className="mb-8 grid grid-cols-3 gap-2">
         <Panel title={<h2 className="text-sm text-blue">PARTY PEOPLE</h2>}>
@@ -54,7 +51,7 @@ export function PoolItem(pool: Pool) {
           </div>
         </Panel>
         <Panel title={<h2 className="text-sm text-blue">TOTAL POOL ENTRY</h2>}>
-          {formatValue(total.toString(), token.decimals)}
+          {total.toString()}
         </Panel>
       </div>
       <div className="text-center">
@@ -65,16 +62,12 @@ export function PoolItem(pool: Pool) {
               className="border-[5px] border-pink"
               title={<h2 className="text-lg text-pink">TO WIN</h2>}
             >
-              <div className="flex w-3/4 justify-between py-2">
-                <p className="mr-2 text-xl">66%</p>
-                <div>
-                  <p>80.33</p>
-                  <p>10.33</p>
-                </div>
+              <div>
+                <p className="text-xl">66%</p>
               </div>
             </Panel>
             <Panel
-              className="border-[5px] border-blue py-2"
+              className="border-[5px] border-blue"
               title={
                 <div className="mx-auto inline-block items-center">
                   <h2 className="mr-2 inline-block text-[28px] text-blue">
@@ -86,15 +79,11 @@ export function PoolItem(pool: Pool) {
                 </div>
               }
             >
-              <div>
-                <p className="mb-2">66%</p>
-                <p className="text-sm text-pink">AND COUNTING!</p>
-              </div>
+              66%
             </Panel>
           </div>
-          <button className="button w-full">DIVE IN THE PARTY POOL</button>
         </PoolInput>
       </div>
-    </BackdropContainer>
+    </div>
   );
 }

@@ -1,15 +1,19 @@
 "use client";
 import { WagmiConfig, createClient } from "wagmi";
+import { mainnet, bsc, bscTestnet, localhost } from "wagmi/chains";
 import { ConnectKitProvider, getDefaultClient } from "connectkit";
 import { ReactNode } from "react";
 import { PureJoy } from "../app/font";
 
 const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
 
+const CHAINS = [mainnet, bsc, bscTestnet, localhost];
+
 const client = createClient(
   getDefaultClient({
     appName: "Pool Party",
     alchemyId,
+    chains: CHAINS,
   })
 );
 

@@ -1,9 +1,11 @@
 import "./globals.css";
+import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import BackgroundImg from "@public/background.jpg";
 import { App } from "@components/app";
 import Header from "@components/header";
 import { PureJoy } from "./font";
+import Container from "@components/container";
 
 export const metadata = {
   title: "Pool Party",
@@ -17,16 +19,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className={`h-full relative ${PureJoy.className} overflow-hidden`}>
-          <div className="blur-[3px] absolute inset-[-1%]">
-            <Image src={BackgroundImg} alt="" fill className="object-cover" />
+        <div className={`relative h-full overflow-hidden`}>
+          <div className="absolute inset-[-1%]">
+            <Image
+              src={BackgroundImg}
+              alt=""
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
-          <div className="relative h-full overflow-auto" id="pool-party">
-            <App>
-              <Header />
-              {children}
-            </App>
-          </div>
+          <Container>{children}</Container>
         </div>
       </body>
     </html>
