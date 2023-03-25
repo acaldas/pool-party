@@ -2,6 +2,7 @@
 
 import { BigNumber, utils } from "ethers";
 import { useState } from "react";
+import { Pools } from "../app/config";
 import { formatValue } from "../app/utils";
 import BackdropContainer from "./backdrop-container";
 import DialogBoost from "./dialog-boost";
@@ -47,41 +48,7 @@ const schedules: ScheduledPools[] = new Array(7).fill("").map((_, index) => {
   day.setDate(today.getDate() + index + 1);
   return {
     day,
-    pools: [
-      {
-        token: {
-          name: "TRUTH",
-          icon: "https://assets.coingecko.com/nft_contracts/images/2291/large/truth-nft.jpg?1671083970",
-          contract: "0xfe64bf14718dfbe64b1ee0c3cc12e76e983487f3",
-          decimals: 18,
-        },
-        prize: utils.parseEther("11133").toString(),
-        total: utils.parseEther("1499").toString(),
-        people: 1255,
-      },
-      {
-        token: {
-          name: "WSNB",
-          icon: "https://assets.coingecko.com/coins/images/12591/large/binance-coin-logo.png?1600947313",
-          contract: "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
-          decimals: 18,
-        },
-        prize: utils.parseEther("11133").toString(),
-        total: utils.parseEther("1499").toString(),
-        people: 1255,
-      },
-      {
-        token: {
-          name: "USDC",
-          icon: "https://pbs.twimg.com/profile_images/1622863202206752769/REgUZuxg_400x400.jpg",
-          contract: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-          decimals: 6,
-        },
-        prize: utils.parseUnits("11133", 6).toString(),
-        total: utils.parseUnits("1499", 6).toString(),
-        people: 1255,
-      },
-    ],
+    pools: Pools,
   };
 });
 
@@ -116,7 +83,8 @@ export default function Schedule() {
               {pools.map((pool) => (
                 <li className="mb-3 text-right" key={pool.token.contract}>
                   <p className="overflow-hidden text-ellipsis px-1 text-center">
-                    {formatValue(pool.prize, pool.token.decimals)}
+                    {formatValue(pool.bonus.amount, pool.bonus.token.decimals)}{" "}
+                    {pool.bonus.token.name}
                   </p>
                 </li>
               ))}

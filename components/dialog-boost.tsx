@@ -3,6 +3,7 @@ import { PureJoy } from "../app/font";
 import PoolInput from "./pool-input";
 import { dateToDay, ScheduledPools } from "./schedule";
 import { formatValue } from "../app/utils";
+import TokenAmount from "./token-amount";
 
 export default function DialogBoost({
   scheduledPool,
@@ -50,9 +51,13 @@ export default function DialogBoost({
                 <h2 className="absolute top-0 left-0 right-0 -translate-y-1/2 text-xl text-pinkDark">{`${pool.token.name}.POOL`}</h2>
                 <div className="mb-8 mt-6">
                   <p className="mb-4 text-blue">CURRENT VALUE</p>
-                  <p className="overflow-hidden text-ellipsis text-xl">
-                    {formatValue(pool.prize, pool.token.decimals)}
-                  </p>
+                  <div className="inline-flex">
+                    <TokenAmount
+                      className="overflow-hidden text-ellipsis"
+                      size="xl"
+                      {...pool.bonus}
+                    />
+                  </div>
                 </div>
                 <PoolInput pool={pool}>
                   <div className="mt-8">

@@ -1,7 +1,9 @@
-import { ReactNode, useEffect, useState } from "react";
+import { BigNumber, BigNumberish } from "ethers";
+import { ReactNode } from "react";
 import { formatValue } from "../app/utils";
 import BackdropContainer from "./backdrop-container";
 import PoolInput from "./pool-input";
+import TokenAmount from "./token-amount";
 import TooltipBonus from "./tooltip-bonus";
 
 function Panel({
@@ -27,12 +29,12 @@ function Panel({
 }
 
 export function PoolItem(pool: Pool) {
-  const { token, prize, total, people } = pool;
+  const { token, prize, total, people, bonus } = pool;
 
   return (
     <BackdropContainer
       className="bg-blur relative mt-4 w-full
-          max-w-[544px] rounded-[20px] border-[5px] border-blue p-7 pt-[60px]
+          max-w-[544px] rounded-[20px] border-[5px] border-blue p-5 pt-[60px]
           [&:nth-child(2n)]:justify-self-center [&:nth-child(3n)]:justify-self-end"
     >
       <h1
@@ -40,7 +42,13 @@ export function PoolItem(pool: Pool) {
       -translate-y-1/2 text-center text-xl text-pink"
       >{`${token.name}.POOL`}</h1>
       <Panel className="mb-6" title={<h2 className="text-blue">PRIZEPOOL</h2>}>
-        <div>{formatValue(prize.toString(), token.decimals)}</div>
+        <div
+          className={`grid grid-cols-${prize.length} w-full justify-items-center py-7`}
+        >
+          {prize.map(({ token, amount }) => (
+            <TokenAmount token={token} amount={amount} size="xl" />
+          ))}
+        </div>
       </Panel>
       <div className="mb-8 grid grid-cols-3 gap-2">
         <Panel title={<h2 className="text-sm text-blue">PARTY PEOPLE</h2>}>
@@ -60,16 +68,17 @@ export function PoolItem(pool: Pool) {
       <div className="text-center">
         <h1 className="mb-7 text-lg text-pink">DIVE IN THE PARTY WITH</h1>
         <PoolInput pool={pool}>
-          <div className="my-8 grid grid-cols-2 gap-5">
+          <div className="my-8 grid grid-cols-2 gap-3">
             <Panel
               className="border-[5px] border-pink"
               title={<h2 className="text-lg text-pink">TO WIN</h2>}
             >
-              <div className="flex w-3/4 justify-between py-2">
-                <p className="mr-2 text-xl">66%</p>
-                <div>
-                  <p>80.33</p>
-                  <p>10.33</p>
+              <div className="flex w-full items-center justify-between p-3">
+                <p className="mr-2 pl-1 text-xl">66%</p>
+                <div className="grid gap-2">
+                  {prize.map(({ token, amount }) => (
+                    <TokenAmount token={token} amount={amount} size="xs" />
+                  ))}
                 </div>
               </div>
             </Panel>
@@ -87,7 +96,10 @@ export function PoolItem(pool: Pool) {
               }
             >
               <div>
-                <p className="mb-2">66%</p>
+                <p className="mb-2">
+                  {formatValue(bonus.amount, bonus.token.decimals)}{" "}
+                  {bonus.token.name}
+                </p>
                 <p className="text-sm text-pink">AND COUNTING!</p>
               </div>
             </Panel>

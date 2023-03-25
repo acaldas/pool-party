@@ -15,7 +15,7 @@ export default function TooltipBonus() {
               "linear-gradient(0deg, rgba(83, 214, 255, 0.05), rgba(83, 214, 255, 0.05)), rgba(255, 255, 255, 0.5)",
           }}
         >
-          <Dialog.Title className="absolute top-0 left-0 right-0 -translate-y-1/2 text-xl">
+          <Dialog.Title className="absolute top-0 left-0 right-0 -translate-y-1/2 text-xl text-pink">
             THE BONUSPOOL
           </Dialog.Title>
           <div className="mx-auto mb-[50px] max-w-[450px]">
@@ -29,7 +29,7 @@ export default function TooltipBonus() {
             </p>
           </div>
           <button
-            className="button h-[50px] w-full rounded-md bg-blue text-white outline-none hover:bg-blueDark"
+            className="button h-[50px] w-full rounded-md !bg-blue text-white outline-none hover:bg-blueDark"
             style={{ textShadow: "none" }}
             onClick={onClose}
           >

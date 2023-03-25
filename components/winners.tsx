@@ -1,14 +1,15 @@
 import { BigNumberish, utils } from "ethers";
 import { formatValue } from "../app/utils";
 import BackdropContainer from "./backdrop-container";
+import TokenAmount from "./token-amount";
 
 interface IProps {
   winners: {
     pool: Pool;
     winners: {
       address: string;
-      prize: BigNumberish;
-      bonus: BigNumberish;
+      prize: Pool["prize"];
+      bonus?: Pool["bonus"];
     }[];
   }[];
 }
@@ -25,27 +26,30 @@ export default function Winners({ winners }: IProps) {
       >
         YESTERDAY'S WINNERS
       </h1>
-      <div className="grid grid-cols-3 gap-6 text-center">
+      <div className="flex items-start justify-between text-center">
         {winners.map(({ pool, winners }) => (
           <div key={pool.token.contract}>
             <h1 className="mb-8 text-xl text-pink">{`${pool.token.name}.POOL`}</h1>
             <ul>
               {winners.map((winner) => (
-                <li className="mb-3 grid grid-cols-3 text-lg">
-                  <p className="text-blue">{`...${winner.address.slice(
+                <li
+                  className={`mb-3 grid gap-7 text-lg ${
+                    !winner.bonus ? "grid-cols-3" : "grid-cols-4 "
+                  }`}
+                >
+                  <p className="text-right text-blue">{`...${winner.address.slice(
                     -4
                   )}`}</p>
-                  <p className="overflow-hidden text-ellipsis">
-                    {formatValue(winner.prize, pool.token.decimals)}
-                  </p>
-                  <p className="overflow-hidden text-ellipsis">
-                    {
-                      formatValue(
-                        winner.bonus,
-                        pool.token.decimals
-                      ) /* TODO bonus decimals */
-                    }
-                  </p>
+                  {winner.prize.map((prize) => (
+                    <p className="overflow-hidden text-ellipsis">
+                      <TokenAmount {...prize} size="lg" />
+                    </p>
+                  ))}
+                  {winner.bonus && (
+                    <p className="overflow-hidden text-ellipsis">
+                      <TokenAmount {...winner.bonus} size="lg" />
+                    </p>
+                  )}
                 </li>
               ))}
             </ul>
