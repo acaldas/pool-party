@@ -6,12 +6,14 @@ const IconSizes = {
   xs: 25,
   lg: 32,
   xl: 40,
+  "2xl": 74,
 } as const;
 
 const Margins = {
   xs: 4,
   lg: 12,
   xl: 16,
+  "2xl": 36,
 } as const;
 
 export default function TokenAmount({
@@ -22,12 +24,12 @@ export default function TokenAmount({
 }: {
   amount: BigNumberish;
   token: Token;
-  size?: "xs" | "lg" | "xl";
+  size?: keyof typeof IconSizes;
   className?: string;
 }) {
   const iconSize = IconSizes[size];
   return (
-    <div className={`flex items-center justify-between ${className}`}>
+    <span className={`inline-flex items-center justify-between ${className}`}>
       <Image
         className="overflow-hidden rounded-md"
         src={token.icon}
@@ -41,6 +43,6 @@ export default function TokenAmount({
       <span className={`px-1 pt-1 text-${size}`}>
         {formatValue(amount, token.decimals)}
       </span>
-    </div>
+    </span>
   );
 }

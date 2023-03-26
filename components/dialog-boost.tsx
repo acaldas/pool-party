@@ -2,7 +2,6 @@ import { Dialog } from "@headlessui/react";
 import { PureJoy } from "../app/font";
 import PoolInput from "./pool-input";
 import { dateToDay, ScheduledPools } from "./schedule";
-import { formatValue } from "../app/utils";
 import TokenAmount from "./token-amount";
 
 export default function DialogBoost({

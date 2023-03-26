@@ -7,6 +7,7 @@ module.exports = {
       base: "1rem",
       lg: "1.33rem",
       xl: "1.66rem",
+      "2xl": "2.66rem",
     },
     spacing: {
       0: "0px",
@@ -18,6 +19,8 @@ module.exports = {
       6: "24px",
       7: "28px",
       8: "32px",
+      9: "48px",
+      10: "64px",
     },
     extend: {
       backgroundImage: {
@@ -33,6 +36,7 @@ module.exports = {
         pink: "#DD008B",
         pinkDark: "#B1006F",
         modal: "rgba(0, 0, 0, 0.5)",
+        gray: "#949494",
       },
     },
   },

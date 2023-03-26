@@ -18,20 +18,13 @@ declare global {
     total: BigNumberish;
     people: number;
   };
-}
 
-type PoolState =
-  | {
-      state: "None";
-    }
-  | {
-      state: "Playing";
-      entry: BigNumberish;
-    }
-  | {
-      state: "Finished";
-      prize: {
-        token;
-        BigNumberish;
-      }[];
-    };
+  type PoolStateDefault = { state: "Default" };
+  type PoolStatePlaying = { state: "Playing"; entry: BigNumberish };
+  type PoolStateFinished = {
+    state: "Finished";
+    prize: Poll["prize"];
+    bonus?: Pool["bonus"];
+  };
+  type PoolState = PoolStateDefault | PoolStatePlaying | PoolStateFinished;
+}
