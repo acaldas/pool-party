@@ -13,14 +13,20 @@ export default function PoolItemDefault({
     <>
       <Panel className="mb-6" title={<h2 className="text-blue">PRIZEPOOL</h2>}>
         <div
-          className={`grid grid-cols-${prize.length} w-full justify-items-center py-7`}
+          className={`grid grid-cols-${prize.length} w-full justify-items-center py-7 xs:grid-cols-1`}
         >
           {prize.map(({ token, amount }) => (
-            <TokenAmount token={token} amount={amount} size="xl" />
+            <TokenAmount
+              key={token.name}
+              token={token}
+              amount={amount}
+              size="xl"
+              className="xs:mb-3"
+            />
           ))}
         </div>
       </Panel>
-      <div className="mb-8 grid grid-cols-3 gap-2">
+      <div className="mb-8 grid grid-cols-3 gap-2 xl:grid-cols-2">
         <Panel title={<h2 className="text-sm text-blue">PARTY PEOPLE</h2>}>
           {people.toString()}
         </Panel>
@@ -31,23 +37,31 @@ export default function PoolItemDefault({
             <p>{people.toString()}</p>
           </div>
         </Panel>
-        <Panel title={<h2 className="text-sm text-blue">TOTAL POOL ENTRY</h2>}>
+        <Panel
+          className="xl:col-span-2"
+          title={<h2 className="text-sm text-blue">TOTAL POOL ENTRY</h2>}
+        >
           {formatValue(total.toString(), token.decimals)}
         </Panel>
       </div>
       <div className="text-center">
         <h1 className="mb-7 text-lg text-pink">DIVE IN THE PARTY WITH</h1>
         <PoolInput pool={pool}>
-          <div className="my-8 grid grid-cols-2 gap-3">
+          <div className="my-8 grid grid-cols-2 gap-3 xl:grid-cols-1">
             <Panel
               className="border-[5px] border-pink"
               title={<h2 className="text-lg text-pink">TO WIN</h2>}
             >
-              <div className="flex w-full items-center justify-between p-3">
-                <p className="mr-2 pl-1 text-xl">66%</p>
-                <div className="grid gap-2">
+              <div className="inline-flex w-full items-center justify-evenly">
+                <p className="mr-2 pr-2 pl-4 text-right text-xl">66%</p>
+                <div className="flex flex-col pr-1 text-left">
                   {prize.map(({ token, amount }) => (
-                    <TokenAmount token={token} amount={amount} size="xs" />
+                    <TokenAmount
+                      key={token.name}
+                      token={token}
+                      amount={amount}
+                      size="xs"
+                    />
                   ))}
                 </div>
               </div>

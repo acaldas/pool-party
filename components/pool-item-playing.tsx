@@ -14,7 +14,7 @@ export default function PoolItemPlaying({
           Come back when the timer is over to claim your winnings!
         </h2>
       </div>
-      <div className="">
+      <div className="my-8">
         <h3 className="mb-3 text-lg text-blue">YOUR ENTRY</h3>
         <h3 className="text-lg text-pink">
           {formatValue(state.entry, pool.token.decimals)}

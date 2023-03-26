@@ -44,6 +44,7 @@ export default function DialogBoost({
           <div className="grid grid-cols-3 gap-6">
             {scheduledPool?.pools.map((pool) => (
               <div
+                key={pool.token.name}
                 className="relative rounded-[20px] border-[5px] border-pinkDark p-6
                     text-center text-purple backdrop-blur-[12.5px]"
               >

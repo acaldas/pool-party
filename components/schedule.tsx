@@ -68,20 +68,20 @@ export default function Schedule() {
       >
         PRICE POOL SCHEDULE
       </h1>
-      <div className="grid grid-cols-7 gap-3 text-center">
+      <div className="grid grid-cols-7 gap-3 text-center lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1">
         {schedules.map(({ day, pools }) => (
           <div
             onClick={() => setSelectedPool({ day, pools })}
             key={dateToDay(day)}
-            className="bg-blur-blue bg-blur-pink-hover group relative rounded-[20px]
-          border-[5px] border-blue p-8 backdrop-blur-[12.5px] hover:cursor-pointer hover:border-pink"
+            className="bg-blur-blue bg-blur-pink-hover group relative rounded-[20px] border-[5px]
+          border-blue p-1 py-8 backdrop-blur-[12.5px] hover:cursor-pointer hover:border-pink lg:mb-7"
           >
             <h1 className="absolute top-0 left-0 right-0 mb-8 -translate-y-1/2 text-center text-blue group-hover:text-purple">
               {dateToDay(day)}
             </h1>
             <ul className="group-hover:text-pink">
               {pools.map((pool) => (
-                <li className="mb-3 text-right" key={pool.token.contract}>
+                <li className="mb-3 text-right" key={pool.token.name}>
                   <p className="overflow-hidden text-ellipsis px-1 text-center">
                     {formatValue(pool.bonus.amount, pool.bonus.token.decimals)}{" "}
                     {pool.bonus.token.name}
@@ -98,7 +98,7 @@ export default function Schedule() {
               <button className="button px-2 text-sm" style={{ height: 28 }}>
                 BOOST POOL
               </button>
-              <div className="absolute right-3 top-0">
+              <div className="absolute right-3 top-0 xl:right-0 lg:right-3">
                 <TooltipBonus />
               </div>
             </div>

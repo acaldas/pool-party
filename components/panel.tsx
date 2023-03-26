@@ -12,7 +12,7 @@ export default function Panel({
   return (
     <div
       className={`relative mt-3 flex
-        items-center justify-center rounded-[11px] bg-blueLight pt-5 pb-2 text-center backdrop-blur-[5px] ${className}`}
+        min-h-[105px] items-center justify-center rounded-[11px] bg-blueLight pt-5 pb-2 text-center backdrop-blur-[5px] ${className}`}
     >
       <div className="absolute top-0 left-0 right-0 -translate-y-1/2">
         {title}

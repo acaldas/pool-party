@@ -22,6 +22,12 @@ body {
   line-height: 1.059;
 }
 
+@media only screen and (max-width: 600px) {
+  .text-2xl {
+    font-size: 2rem;
+  }
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(

@@ -20,9 +20,9 @@ const states = [
 
 export default function Home() {
   return (
-    <main className="px-[5.1vw] py-[4.3vh]">
+    <main className="px-[5.1vw] py-[4.3vh] xl:px-[4vw]">
       <div className="mx-auto max-w-[1920px]">
-        <div className="mb-[4.3vh] grid justify-center gap-[1vw] xl:grid-cols-3">
+        <div className="mb-[4.3vh] grid grid-cols-3 justify-center gap-[2vw] lg:grid-cols-2">
           {Pools.map((pool, index) => (
             <PoolItem
               key={pool.token.name}
@@ -31,7 +31,7 @@ export default function Home() {
             />
           ))}
         </div>
-        <div className="mb-[4.3vh]">
+        <div className="mb-[4.3vh] xs:mb-10">
           <Winners
             winners={Pools.map((pool) => ({
               pool,
@@ -39,17 +39,17 @@ export default function Home() {
                 {
                   prize: pool.prize,
                   bonus: pool.token.name === "WBNB" ? pool.bonus : undefined,
-                  address: "0x1JHG",
+                  address: "0x1JHG11",
                 },
                 {
                   prize: pool.prize,
                   bonus: pool.token.name === "WBNB" ? pool.bonus : undefined,
-                  address: "0x1JHG",
+                  address: "0x1JHG12",
                 },
                 {
                   prize: pool.prize,
                   bonus: pool.token.name === "WBNB" ? pool.bonus : undefined,
-                  address: "0x1JHG",
+                  address: "0x1JHG13",
                 },
               ],
             }))}

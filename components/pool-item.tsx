@@ -31,9 +31,10 @@ export function PoolItem<T extends PoolState>({
   const PoolComponent = getPoolComponent<T>(state);
   return (
     <BackdropContainer
-      className="bg-blur relative mt-4 w-full
-          max-w-[544px] rounded-[20px] border-[5px] border-blue p-5 pt-[60px]
-          [&:nth-child(2n)]:justify-self-center [&:nth-child(3n)]:justify-self-end"
+      className="bg-blur relative my-4 min-h-[610px] w-full max-w-[544px]
+          rounded-[20px] border-[5px] border-blue p-5 pt-[60px] md:col-span-2 md:justify-self-center
+          [&:nth-child(2n)]:justify-self-center lg:[&:nth-child(2n)]:justify-self-end  md:[&:nth-child(2n)]:justify-self-center
+          [&:nth-child(3n)]:justify-self-end lg:[&:nth-child(3n)]:col-span-2 lg:[&:nth-child(3n)]:justify-self-center"
     >
       <h1
         className="absolute top-0 left-0 right-0

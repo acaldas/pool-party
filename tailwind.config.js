@@ -22,6 +22,13 @@ module.exports = {
       9: "48px",
       10: "64px",
     },
+    screens: {
+      xl: { max: "1780px" },
+      lg: { max: "1380px" },
+      md: { max: "1040px" },
+      sm: { max: "840px" },
+      xs: { max: "560px" },
+    },
     extend: {
       backgroundImage: {
         blur: "background: linear-gradient(0deg, rgba(83, 214, 255, 0.05), rgba(83, 214, 255, 0.05)), rgba(255, 255, 255, 0.5)",
