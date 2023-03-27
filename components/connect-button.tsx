@@ -6,7 +6,7 @@ export default function ConnectButton() {
     <ConnectKitButton.Custom>
       {({ show, isConnected, truncatedAddress }) => {
         return (
-          <button className="button w-[320px]" onClick={show}>
+          <button className="button w-[320px] xs:w-auto xs:px-4" onClick={show}>
             {isConnected ? truncatedAddress : "CONNECT WALLET"}
           </button>
         );

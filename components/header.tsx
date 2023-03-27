@@ -10,10 +10,10 @@ export default function Header() {
   return (
     <BackdropContainer
       blur={9.5}
-      className="grid h-[80px] grid-cols-3 items-center bg-[rgba(18,175,224,0.75)] px-[2.4vw]"
+      className="grid h-[80px] grid-cols-3 items-center bg-[rgba(18,175,224,0.75)] px-[2.4vw] md:grid-cols-2"
     >
       <h1>Pool Party</h1>
-      <h1 className="justify-self-center text-pink">
+      <h1 className="justify-self-center text-pink md:hidden">
         PARTYTIMER:{" "}
         <Timer className="pl-1" timeRemaining={date.toUTCString()} />
       </h1>
