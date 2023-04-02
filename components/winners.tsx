@@ -1,33 +1,19 @@
-import { BigNumberish, utils } from "ethers";
-import { formatValue } from "../app/utils";
 import BackdropContainer from "./backdrop-container";
 import Reveal from "./reveal";
 import TokenAmount from "./token-amount";
 
 interface IProps {
-  winners: {
-    pool: Pool;
-    winners: {
-      address: string;
-      prize: Pool["prize"];
-      bonus?: Pool["bonus"];
-    }[];
-  }[];
+  pools: Pool[];
 }
-
-export default function Winners({ winners }: IProps) {
-  const winnerComponents = winners.map(({ pool, winners }) => (
+export default async function Winners({ pools }: IProps) {
+  const winnerComponents = pools.map((pool) => (
     <div key={pool.token.contract} className="sm:mb-9">
       <h1 className="mb-8 text-xl text-pink sm:mb-2">{`${pool.token.name}.POOL`}</h1>
       <ul>
-        {winners.map((winner) => (
+        {pool.winners.map((winner, index) => (
           <li
-            key={winner.address}
-            className={`mb-3 grid gap-5 text-lg xl:gap-3 sm:grid-cols-2 xs:block ${
-              !winner.bonus
-                ? "grid-cols-[auto_auto_auto]"
-                : "grid-cols-[auto_auto_auto_auto]"
-            }`}
+            key={index}
+            className={`mb-3 grid grid-cols-[auto_auto_auto_auto] gap-5 text-lg xl:gap-3 sm:grid-cols-2 xs:block`}
           >
             <p className="pt-1 text-right text-blue xl:col-span-4 xl:text-left xs:text-center">{`...${winner.address.slice(
               -4

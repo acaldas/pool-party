@@ -7,7 +7,10 @@ import { PureJoy } from "../app/font";
 
 const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY;
 
-const CHAINS = [mainnet, bsc, bscTestnet, localhost];
+const CHAINS = [
+  // mainnet, bsc, bscTestnet,
+  localhost,
+];
 
 const client = createClient(
   getDefaultClient({
@@ -33,7 +36,7 @@ const customTheme = {
   "--ck-body-background-secondary": "rgb(48, 135, 166)",
 };
 
-export function App({ children }: { children: ReactNode }) {
+export default function WalletContainer({ children }: { children: ReactNode }) {
   return (
     <WagmiConfig client={client}>
       <ConnectKitProvider

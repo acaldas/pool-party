@@ -1,18 +1,10 @@
 "use client";
-
-import { BigNumber, utils } from "ethers";
 import { useState } from "react";
-import { Pools } from "../app/config";
 import { formatValue } from "../app/utils";
 import BackdropContainer from "./backdrop-container";
 import DialogBoost from "./dialog-boost";
 import Reveal from "./reveal";
 import TooltipBonus from "./tooltip-bonus";
-
-export type ScheduledPools = {
-  day: Date;
-  pools: Pool[];
-};
 
 const Weekday = [
   "Sunday",
@@ -35,7 +27,8 @@ function dateDiffInDays(a: Date, b: Date) {
 
 const today = new Date();
 
-export function dateToDay(date: Date) {
+export function dateToDay(timestamp: string) {
+  const date = new Date(timestamp);
   const diff = dateDiffInDays(today, date);
   if (diff === 1) {
     return "TOMORROW";
@@ -44,23 +37,19 @@ export function dateToDay(date: Date) {
   }
 }
 
-const schedules: ScheduledPools[] = new Array(7).fill("").map((_, index) => {
-  const day = new Date(today);
-  day.setDate(today.getDate() + index + 1);
-  return {
-    day,
-    pools: Pools,
-  };
-});
-
-export default function Schedule() {
-  const [selectedPool, setSelectedPool] = useState<ScheduledPools | undefined>(
-    undefined
-  );
-
-  const scheduleComponents = schedules.map(({ day, pools }) => (
+export default function Schedule({
+  schedules,
+  pools,
+}: {
+  schedules: ScheduledPools[];
+  pools: Pool[];
+}) {
+  const [selectedPool, setSelectedPool] = useState<
+    ScheduledPools | undefined
+  >();
+  const scheduleComponents = schedules.map(({ day, pools, currentDay }) => (
     <div
-      onClick={() => setSelectedPool({ day, pools })}
+      onClick={() => setSelectedPool({ day, pools, currentDay })}
       key={dateToDay(day)}
       className="bg-blur-blue bg-blur-pink-hover group relative rounded-[20px] border-[5px]
     border-blue p-1 py-8 backdrop-blur-[12.5px] hover:cursor-pointer hover:border-pink lg:mb-7"
@@ -72,8 +61,7 @@ export default function Schedule() {
         {pools.map((pool) => (
           <li className="mb-3 text-right" key={pool.token.name}>
             <p className="overflow-hidden text-ellipsis px-1 text-center">
-              {formatValue(pool.bonus.amount, pool.bonus.token.decimals)}{" "}
-              {pool.bonus.token.name}
+              {formatValue(pool.amount, pool.token.decimals)} {pool.token.name}
             </p>
           </li>
         ))}
@@ -122,6 +110,7 @@ export default function Schedule() {
         {scheduleComponents.slice(1)}
       </Reveal>
       <DialogBoost
+        pools={pools}
         scheduledPool={selectedPool}
         onClose={() => setSelectedPool(undefined)}
       />

@@ -56,7 +56,7 @@ export function PoolItem(pool: Pool) {
       </div>
       <div className="text-center">
         <h1 className="mb-7 text-lg text-pink">DIVE IN THE PARTY WITH</h1>
-        <PoolInput pool={pool}>
+        <PoolInput pool={pool} action="boost">
           <div className="my-8 grid grid-cols-2 gap-5">
             <Panel
               className="border-[5px] border-pink"

@@ -1,17 +1,19 @@
 import { Dialog } from "@headlessui/react";
 import { PureJoy } from "../app/font";
 import PoolInput from "./pool-input";
-import { dateToDay, ScheduledPools } from "./schedule";
+import { dateToDay } from "./schedule";
 import TokenAmount from "./token-amount";
 
 export default function DialogBoost({
   scheduledPool,
+  pools,
   onClose,
 }: {
   scheduledPool?: ScheduledPools;
+  pools: Pool[];
   onClose: () => void;
 }) {
-  const day = dateToDay(scheduledPool?.day || new Date());
+  const day = dateToDay(scheduledPool?.day || new Date().toISOString());
   return (
     <Dialog
       open={!!scheduledPool}
@@ -55,15 +57,28 @@ export default function DialogBoost({
                       <TokenAmount
                         className="overflow-hidden text-ellipsis"
                         size="xl"
-                        {...pool.bonus}
+                        token={pool.token}
+                        amount={pool.amount}
                       />
                     </div>
                   </div>
-                  <PoolInput pool={pool}>
-                    <div className="mt-8">
-                      <button className="button w-full">{`BOOST ${pool.token.name}.POOL`}</button>
-                    </div>
-                  </PoolInput>
+                  {pools.find(
+                    (p) => p.token.contract === pool.token.contract
+                  ) && (
+                    <PoolInput
+                      pool={
+                        pools.find(
+                          (p) => p.token.contract === pool.token.contract
+                        )!
+                      }
+                      action={{
+                        action: "boost",
+                        day: scheduledPool.currentDay,
+                      }}
+                    >
+                      <div className="mt-8"></div>
+                    </PoolInput>
+                  )}
                 </div>
               ))}
             </div>

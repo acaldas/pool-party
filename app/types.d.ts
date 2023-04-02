@@ -9,6 +9,7 @@ declare global {
   };
 
   type Pool = {
+    address: `0x${string}`;
     token: Token;
     prize: [
       { token: Token; amount: BigNumberish },
@@ -17,6 +18,8 @@ declare global {
     bonus: { token: Token; amount: BigNumberish };
     total: BigNumberish;
     people: number;
+    largestPurchases: { amount: BigNumberish; user: `0x${string}` }[];
+    winners: PoolWinner[];
   };
 
   type PoolStateDefault = { state: "Default" };
@@ -27,4 +30,20 @@ declare global {
     bonus?: Pool["bonus"];
   };
   type PoolState = PoolStateDefault | PoolStatePlaying | PoolStateFinished;
+
+  type PoolWinner = {
+    address: string;
+    prize: [
+      { token: Token; amount: BigNumberish },
+      { token: Token; amount: BigNumberish },
+      { token: Token; amount: BigNumberish }
+    ];
+    bonus?: Pool["bonus"];
+  };
+
+  type ScheduledPools = {
+    day: string;
+    currentDay: BigNumberish;
+    pools: { token: Token; amount: BigNumberish }[];
+  };
 }

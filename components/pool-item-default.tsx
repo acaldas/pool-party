@@ -14,7 +14,6 @@ export default function PoolItemDefault({
     <Reveal
       header={
         <>
-          {" "}
           <Panel
             className="mb-6"
             title={<h2 className="text-blue">PRIZEPOOL</h2>}
@@ -41,9 +40,11 @@ export default function PoolItemDefault({
               title={<h2 className="text-sm text-blue">BIGGEST DIVERS</h2>}
             >
               <div className="">
-                <p>{people.toString()}</p>
-                <p className="my-[1px]">{people.toString()}</p>
-                <p>{people.toString()}</p>
+                {pool.largestPurchases.map(({ amount }, index) => (
+                  <p key={index} className="even:my-1">
+                    {formatValue(amount, 18)}
+                  </p>
+                ))}
               </div>
             </Panel>
             <Panel
@@ -58,7 +59,7 @@ export default function PoolItemDefault({
     >
       <div className="text-center">
         <h1 className="mb-7 text-lg text-pink">DIVE IN THE PARTY WITH</h1>
-        <PoolInput pool={pool}>
+        <PoolInput pool={pool} action="dive">
           <div className="my-8 grid grid-cols-2 gap-3 xl:grid-cols-1">
             <Panel
               className="border-[5px] border-pink"
@@ -100,7 +101,6 @@ export default function PoolItemDefault({
               </div>
             </Panel>
           </div>
-          <button className="button w-full">DIVE IN THE PARTY POOL</button>
         </PoolInput>
       </div>
     </Reveal>

@@ -8,14 +8,10 @@ interface IProps {
 
 const SLIDER_WIDTH = 32;
 
-export default function Slider({
-  percentage: initialPercentage,
-  onChange,
-}: IProps) {
+export default function Slider({ percentage, onChange }: IProps) {
   const constraintsRef = useRef<HTMLDivElement>(null);
   const dragControls = useDragControls();
   const x = useMotionValue(0);
-  const [percentage, setPercentage] = useState(initialPercentage);
 
   function startDrag(event: React.PointerEvent) {
     dragControls.start(event, { snapToCursor: true });
@@ -36,9 +32,12 @@ export default function Slider({
         newValue = 0;
         x.set(newValue);
       }
-      setPercentage(newValue / maxSlide);
+
+      onChange(newValue / maxSlide);
     }
-    const unsubscribeX = x.on("change", updateX);
+    const unsubscribeX = x.on("renderRequest", () => {
+      updateX(x.get());
+    });
 
     return () => {
       unsubscribeX();
@@ -51,12 +50,8 @@ export default function Slider({
       return;
     }
     const maxSlide = constraintsRef.current.clientWidth - SLIDER_WIDTH;
-    x.set(maxSlide * initialPercentage);
-  }, [initialPercentage]);
-
-  useEffect(() => {
-    onChange(percentage);
-  }, [onChange, percentage]);
+    x.set(maxSlide * percentage, false);
+  }, [percentage]);
 
   return (
     <>

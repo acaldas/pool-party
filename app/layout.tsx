@@ -1,10 +1,6 @@
 import "./globals.css";
-import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import BackgroundImg from "@public/background.jpg";
-import { App } from "@components/app";
-import Header from "@components/header";
-import { PureJoy } from "./font";
 import Container from "@components/container";
 
 export const metadata = {

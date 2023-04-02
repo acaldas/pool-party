@@ -81,7 +81,7 @@ a {
 @layer components {
   #pool-party .button,
   .modal .button {
-    @apply h-[50px] rounded-[6px] bg-pink text-white transition-colors hover:bg-pinkDark;
+    @apply h-[50px] rounded-[6px] bg-pink text-white transition-colors hover:bg-pinkDark disabled:bg-pinkDark;
     text-shadow: none;
   }
 }

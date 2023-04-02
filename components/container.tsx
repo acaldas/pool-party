@@ -1,6 +1,6 @@
 "use client";
 
-import { App } from "@components/app";
+import WalletContainer from "@components/wallet-container";
 import Header from "@components/header";
 import { Transition } from "@headlessui/react";
 import BackgroundImg from "@public/background.jpg";
@@ -45,10 +45,10 @@ export default function Container({ children }: { children: ReactNode }) {
           leaveTo="opacity-0"
         >
           <div className="relative h-full overflow-auto" id="pool-party">
-            <App>
+            <WalletContainer>
               <Header />
               {children}
-            </App>
+            </WalletContainer>
           </div>
         </Transition.Child>
       </Transition>

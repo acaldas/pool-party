@@ -1,10 +1,12 @@
 "use client";
 
-import { BigNumber, BigNumberish } from "ethers";
-import { ReactNode, useCallback, useMemo, useState } from "react";
+import { BigNumber, BigNumberish, utils } from "ethers";
+import { ReactNode, useCallback, useState } from "react";
 import { useAccount } from "wagmi";
 import { useErc20BalanceOf } from "../app/generated";
 import { formatValue } from "../app/utils";
+import PoolBoost from "./actions/pool-boost";
+import PoolDive from "./actions/pool-dive";
 import Slider from "./slider";
 
 function Input({
@@ -33,51 +35,66 @@ function Input({
 export default function PoolInput({
   pool,
   children,
+  action,
 }: {
   pool: Pool;
   children?: ReactNode;
+  action: "dive" | { action: "boost"; day: BigNumberish };
 }) {
   const { token } = pool;
   const { address } = useAccount();
 
-  const contract = useErc20BalanceOf({
+  const { data: balance } = useErc20BalanceOf({
     address: token.contract,
     args: [address || "0x00"],
-    enabled: !!address,
+    enabled: false,
   });
 
-  const maxValue = useMemo(() => {
-    return contract.data ?? BigNumber.from("0");
-  }, [contract]);
+  let maxValue = BigNumber.from("0");
+
+  if (balance && !balance.eq(maxValue)) {
+    maxValue = balance;
+  }
+
   const [value, setValue] = useState(BigNumber.from("0"));
-  const [initialPercentage, setPercentage] = useState(0);
+  const [percentage, setPercentage] = useState(0);
 
   const handlePercentage = useCallback((newPercentage: number) => {
     const newValue = maxValue
       .mul(100)
       .mul(Math.round(newPercentage * 100))
       .div(10000);
-    setValue((value) => (newValue.eq(value) ? value : newValue));
-    // setPercentage(newPercentage);
+    setValue((value) => {
+      return newValue.eq(value) ? value : newValue;
+    });
+    setPercentage(newPercentage);
   }, []);
 
-  const handleValue = useCallback((newValue: BigNumberish) => {
+  const handleValue = useCallback((newValueStr: BigNumberish) => {
+    const newValue = BigNumber.from(
+      utils.parseUnits(newValueStr.toString(), token.decimals)
+    );
+    setValue(newValue);
+
     let newPercentage =
-      BigNumber.from(newValue).mul(100).div(maxValue).mul(100).toNumber() /
-      10000;
+      newValue.mul(100).div(maxValue).mul(100).toNumber() / 10000;
     newPercentage = Math.max(0, newPercentage);
     newPercentage = Math.min(1, newPercentage);
     setPercentage(newPercentage);
-    setValue(BigNumber.from(newValue));
   }, []);
 
   return (
     <div>
-      <Slider percentage={initialPercentage} onChange={handlePercentage} />
+      <Slider percentage={percentage} onChange={handlePercentage} />
       <div className="pt-7">
         <Input value={value} onChange={handleValue} decimals={token.decimals} />
       </div>
       {children}
+      {action === "dive" ? (
+        <PoolDive pool={pool} amount={value} />
+      ) : (
+        <PoolBoost pool={pool} amount={value} day={action.day} />
+      )}
     </div>
   );
 }
